@@ -104,3 +104,316 @@
   <script src="script.js"></script>
 </body>
 </html>
+styles.css
+:root{
+  --bg:#0f1720; /* dark behind phone */
+  --phone-bg:#0a0f12;
+  --card:#0b1220;
+  --accent:#0b5a7a;
+  --success:#14b47a;
+  --muted:#9aa6b2;
+  --glass: rgba(255,255,255,0.04);
+  --radius:14px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Basic app layout */
+*{box-sizing:border-box}
+html,body{height:100%;background:linear-gradient(180deg,#08121a,#0d1a24 140%);margin:0;color:#e6eef3}
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
+
+/* card */
+.card{
+  width:380px;
+  background:linear-gradient(180deg,#07121a,#071b25);
+  border-radius:12px;
+  padding:18px;
+  box-shadow: 0 12px 40px rgba(3,8,12,0.6);
+  border:1px solid rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+}
+h1{margin:0 0 10px 0;font-size:20px;color:#dff5ff}
+.welcome{color:var(--accent);font-weight:700;font-size:18px;margin-bottom:10px}
+input{
+  width:100%;padding:11px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:#e6eef3;margin-top:8px;font-size:14px;
+}
+
+/* labels & preview */
+.label{color:var(--muted);font-size:12px;margin-top:12px;display:block}
+.preview{margin-top:10px;color:var(--muted)}
+
+/* buttons */
+.row{display:flex;gap:10px;margin-top:14px}
+.primary{flex:1;padding:10px 12px;border-radius:10px;border:0;background:linear-gradient(180deg,var(--accent),#083b52);color:white;font-weight:700;cursor:pointer;box-shadow:0 8px 26px rgba(6,40,60,0.25)}
+.ghost{flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#cfeafb;cursor:pointer}
+.link{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0}
+
+/* MOBILE ALERT (full-screen phone look) */
+.mobile-alert{
+  position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+  background:linear-gradient(180deg, rgba(1,7,10,0.6), rgba(1,7,10,0.6));
+  z-index:1200;padding:18px;
+}
+.mobile-alert[aria-hidden="false"]{display:flex}
+
+/* phone frame */
+.phone-frame{
+  width:360px;max-width:92vw;height:720px;max-height:92vh;border-radius:36px;
+  background:linear-gradient(180deg,var(--phone-bg),#07121a);
+  box-shadow: 0 40px 120px rgba(2,6,10,0.8), inset 0 1px 0 rgba(255,255,255,0.02);
+  position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.03);
+  display:flex;align-items:center;justify-content:center;padding:18px;
+}
+
+/* notch */
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);height:8px;width:120px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));opacity:0.9}
+
+/* alert card inside phone */
+.alert-card{
+  width:320px;background:linear-gradient(180deg,#08131a,#06131b);border-radius:18px;padding:14px;
+  color:#e6eef3;box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  transform:translateY(120%); /* start off-screen */
+  animation:slideUp 500ms cubic-bezier(.2,.9,.2,1) forwards;
+  border:1px solid rgba(255,255,255,0.03);
+}
+@keyframes slideUp{
+  to{transform:translateY(0)}
+}
+
+/* top area */
+.alert-top{display:flex;align-items:center;gap:12px;padding-bottom:8px}
+.logo-circle{width:48px;height:48px;border-radius:12px;background:linear-gradient(180deg,#083b52,#0b5a7a);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(11,90,122,0.12)}
+.bank-name{font-weight:800;letter-spacing:0.6px}
+.bank-sub{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* tick with small pop */
+.tick{margin-left:auto;transform:scale(0.9);opacity:0;animation:popIn 700ms 250ms ease forwards}
+@keyframes popIn{
+  0%{transform:scale(0.8);opacity:0}
+  60%{transform:scale(1.06);opacity:1}
+  100%{transform:scale(1);opacity:1}
+}
+
+/* body lines */
+.alert-body{margin-top:8px;border-radius:10px;padding:6px;background:rgba(255,255,255,0.02)}
+.line{display:flex;justify-content:space-between;padding:8px 6px;border-bottom:1px dashed rgba(255,255,255,0.02)}
+.line:last-child{border-bottom:0}
+.k{color:var(--muted);font-size:13px}
+.v{font-weight:700;color:#e6eef3}
+
+/* small */
+.small{font-size:12px;color:var(--muted)}
+
+/* actions */
+.alert-actions{display:flex;gap:10px;margin-top:12px}
+.alert-actions .primary{flex:1;padding:10px;border-radius:10px}
+.alert-actions .ghost{flex:1;padding:10px;border-radius:10px}
+
+/* disclaimer */
+.disclaimer{font-size:11px;color:var(--muted);margin-top:10px;text-align:center}
+
+/* vibration pulse shadow */
+.phone-frame.vibrate{animation:phoneVibe 450ms linear 3}
+@keyframes phoneVibe{
+  0%{transform:translateY(0)}
+  20%{transform:translateY(-6px)}
+  40%{transform:translateY(4px)}
+  60%{transform:translateY(-3px)}
+  80%{transform:translateY(2px)}
+  100%{transform:translateY(0)}
+}
+
+/* responsive small */
+@media (max-width:420px){
+  .phone-frame{width:92vw;height:78vh}
+  .alert-card{width:86%}
+  .card{width:92%}
+}
+script.jrs
+// Mock account lookup table (editable)
+const mockAccounts = {
+  "1234567890": "John Doe",
+  "1111222233": "Mary Nwachukwu",
+  "9876543210": "Chinedu Okoro",
+  "5556667778": "Adaobi Eze"
+};
+
+// --- Registration/Login ---
+function register(){
+  const u = document.getElementById("regUser").value.trim();
+  const p = document.getElementById("regPass").value.trim();
+  if(!u || !p) return alert("Enter username and password.");
+  localStorage.setItem("username", u);
+  localStorage.setItem("password", p);
+  alert("Registered ✓");
+  showPage('loginPage');
+}
+
+function login(){
+  const u = document.getElementById("loginUser").value.trim();
+  const p = document.getElementById("loginPass").value.trim();
+  if(u === localStorage.getItem("username") && p === localStorage.getItem("password")){
+    showPage('editorPage');
+  } else {
+    alert("Incorrect username or password.");
+  }
+}
+
+function showPage(id){
+  ["registerPage","loginPage","editorPage"].forEach(pid=>{
+    const el = document.getElementById(pid);
+    if(pid === id){ el.style.display = ''; el.removeAttribute('aria-hidden'); }
+    else { el.style.display = 'none'; el.setAttribute('aria-hidden','true'); }
+  });
+}
+
+// --- Utilities ---
+function formatNaira(n){
+  const num = Number(String(n).replace(/[^0-9.-]+/g,'')) || 0;
+  return num.toLocaleString('en-NG', { style:'currency', currency:'NGN' });
+}
+function generateTxnId(){
+  const d = new Date();
+  const s = Math.floor(Math.random()*900000)+100000;
+  return `DNW-${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}-${s}`;
+}
+
+// Clear form
+function clearForm(){
+  ["title","txn","senderName","accNumber","receiverNumber"].forEach(id=>document.getElementById(id).value='');
+  document.getElementById("messagePreview").innerHTML = '';
+}
+
+// --- SEND (simulation) & show full-screen mobile alert ---
+function sendMessage(){
+  const title = document.getElementById("title").value.trim() || "ACCESS BANK";
+  const txnRaw = document.getElementById("txn").value.trim();
+  const amount = formatNaira(txnRaw || 0);
+  const sender = document.getElementById("senderName").value.trim() || "Unknown Sender";
+  const senderAcc = document.getElementById("accNumber").value.trim() || "—";
+  const receiver = document.getElementById("receiverNumber").value.trim();
+
+  if(!receiver) return alert("Enter receiver phone number.");
+
+  // Lookup receiver name by trying direct match with account numbers in mockAccounts
+  let receiverName = "Unknown";
+  if(mockAccounts[receiver]) receiverName = mockAccounts[receiver];
+  else {
+    // try match by last 4 digits to simulate fuzzy lookup
+    const last4 = receiver.slice(-4);
+    for(const [acc,name] of Object.entries(mockAccounts)){
+      if(acc.endsWith(last4)){ receiverName = name; break; }
+    }
+  }
+
+  // Fill preview (on the editor)
+  document.getElementById("messagePreview").innerHTML = `
+    <strong>Preview:</strong><br>
+    To: ${receiver} ${receiverName !== "Unknown" ? `• ${receiverName}` : ''}<br>
+    Title: ${title}<br>Amount: ${amount}
+  `;
+
+  // Prepare mobile alert content
+  const ref = generateTxnId();
+  const now = new Date();
+  const dateStr = now.toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+  document.getElementById('mAmount').textContent = amount;
+  document.getElementById('mSender').textContent = sender;
+  document.getElementById('mSenderAcc').textContent = senderAcc;
+  document.getElementById('mReceiver').textContent = receiver;
+  document.getElementById('mReceiverName').textContent = receiverName;
+  document.getElementById('mRef').textContent = ref;
+  document.getElementById('mDate').textContent = dateStr;
+  document.querySelector('.bank-name').textContent = title.toUpperCase();
+
+  // Show mobile alert
+  const alert = document.getElementById('mobileAlert');
+  alert.setAttribute('aria-hidden','false');
+  alert.style.display = 'flex';
+
+  // add phone vibration animation class
+  const phone = document.querySelector('.phone-frame');
+  phone.classList.add('vibrate');
+
+  // try browser vibration (may not work in desktop)
+  if(navigator.vibrate) try { navigator.vibrate([120,80,120]); } catch(e){}
+
+  // After animation, remove vibrate class
+  setTimeout(()=> phone.classList.remove('vibrate'), 1600);
+
+  // Wire Save as PNG
+  const saveBtn = document.getElementById('saveImageBtn');
+  saveBtn.onclick = () => saveReceiptImage();
+
+  // focus close button for accessibility
+  setTimeout(()=> {
+    const close = document.querySelector('.alert-actions .ghost');
+    if(close) close.focus();
+  }, 300);
+}
+
+// Close alert
+function closeMobileAlert(){
+  const alert = document.getElementById('mobileAlert');
+  alert.setAttribute('aria-hidden','true');
+  alert.style.display = 'none';
+}
+
+// Save receipt as PNG using html2canvas-like approach (simple fallback using SVG foreignObject)
+// We implement a simple method that serializes the alert-card and converts to image.
+// NOTE: In some browsers cross-origin fonts/styles may differ.
+function saveReceiptImage(){
+  const card = document.querySelector('.alert-card');
+  const width = card.offsetWidth;
+  const height = card.offsetHeight;
+
+  // Inline styles required for accurate rendering
+  const cloned = card.cloneNode(true);
+  cloned.style.boxShadow = 'none';
+  cloned.style.transform = 'none';
+  cloned.querySelectorAll('button').forEach(b=>b.remove()); // remove interactive buttons
+
+  // Create SVG that embeds the HTML via foreignObject
+  const serializer = new XMLSerializer();
+  const xhtml = `
+    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Inter, Arial; color: #e6eef3; background: #06131b; padding:12px;">
+      ${cloned.outerHTML}
+    </div>
+  `;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+    <foreignObject width="100%" height="100%">${xhtml}</foreignObject>
+  </svg>`;
+
+  const svgBlob = new Blob([svg], {type: 'image/svg+xml;charset=utf-8'});
+  const url = URL.createObjectURL(svgBlob);
+  const img = new Image();
+  img.onload = function(){
+    const canvas = document.createElement('canvas');
+    canvas.width = width * 2; // upscale for decent resolution
+    canvas.height = height * 2;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(2,2);
+    ctx.drawImage(img, 0, 0);
+    URL.revokeObjectURL(url);
+    canvas.toBlob(function(blob){
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `donweb_receipt_${Date.now()}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+  };
+  img.onerror = function(){
+    alert('Saving failed in this browser. Try using a modern browser (Chrome/Edge).');
+  };
+  img.src = url;
+}
+
+// close on Escape
+document.addEventListener('keydown', (e)=> {
+  if(e.key === 'Escape') closeMobileAlert();
+});
