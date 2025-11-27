@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+  <title>DonWeb — Mobile Alert Receipt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- REGISTER -->
+  <main class="app">
+    <section class="card" id="registerPage">
+      <h1>Register</h1>
+      <input id="regUser" placeholder="Username" />
+      <input id="regPass" type="password" placeholder="Password" />
+      <button class="primary" onclick="register()">Register</button>
+      <p class="small">Already registered? <button class="link" onclick="showPage('loginPage')">Login</button></p>
+    </section>
+
+    <!-- LOGIN -->
+    <section class="card" id="loginPage" aria-hidden="true">
+      <h1>Login</h1>
+      <input id="loginUser" placeholder="Username" />
+      <input id="loginPass" type="password" placeholder="Password" />
+      <button class="primary" onclick="login()">Login</button>
+      <p class="small">New here? <button class="link" onclick="showPage('registerPage')">Register</button></p>
+    </section>
+
+    <!-- EDITOR -->
+    <section class="card" id="editorPage" aria-hidden="true">
+      <h1 class="welcome">donweb welcomes you</h1>
+
+      <label class="label">Title</label>
+      <input id="title" placeholder="e.g. Access Bank" />
+
+      <label class="label">Txn Amount</label>
+      <input id="txn" placeholder="e.g. 50000" />
+
+      <label class="label">Sender Name</label>
+      <input id="senderName" placeholder="Sender name" />
+
+      <label class="label">Sender Account Number</label>
+      <input id="accNumber" placeholder="Sender account number" />
+
+      <label class="label">Receiver Phone Number</label>
+      <input id="receiverNumber" placeholder="e.g. 09012345678" />
+
+      <div class="row">
+        <button class="primary" onclick="sendMessage()">Send Message</button>
+        <button class="ghost" onclick="clearForm()">Clear</button>
+      </div>
+
+      <div id="messagePreview" class="preview" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <!-- FULLSCREEN MOBILE ALERT RECEIPT -->
+  <div id="mobileAlert" class="mobile-alert" aria-hidden="true">
+    <div class="phone-frame">
+      <div class="notch"></div>
+      <div class="alert-card" role="dialog" aria-modal="true" aria-labelledby="alertTitle">
+        <div class="alert-top">
+          <div class="logo-circle">
+            <!-- placeholder logo -->
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect width="24" height="24" rx="5" fill="#0b5a7a"/>
+              <path d="M6 15V9h12v6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="bank-info">
+            <div id="alertTitle" class="bank-name">ACCESS BANK</div>
+            <div id="alertSub" class="bank-sub">Transaction Successful</div>
+          </div>
+          <div class="tick" id="alertTick" aria-hidden="true">
+            <!-- success tick -->
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="11" stroke="#14b47a" stroke-width="1.6" fill="rgba(20,180,122,0.06)"/>
+              <path d="M7 13.5l2.5 2.5L17 9" stroke="#14b47a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="alert-body">
+          <div class="line"><span class="k">Amount</span><span id="mAmount" class="v">₦0.00</span></div>
+          <div class="line"><span class="k">Sender</span><span id="mSender" class="v">—</span></div>
+          <div class="line"><span class="k">From Acc</span><span id="mSenderAcc" class="v">—</span></div>
+          <div class="line"><span class="k">To (Phone)</span><span id="mReceiver" class="v">—</span></div>
+          <div class="line"><span class="k">Receiver Name</span><span id="mReceiverName" class="v">Unknown</span></div>
+          <div class="line small"><span class="k">Ref</span><span id="mRef" class="v">—</span></div>
+          <div class="line small"><span class="k">Date</span><span id="mDate" class="v">—</span></div>
+        </div>
+
+        <div class="alert-actions">
+          <button class="primary" id="saveImageBtn">Save as PNG</button>
+          <button class="ghost" onclick="closeMobileAlert()">Close</button>
+        </div>
+
+        <div class="disclaimer">This is a simulated receipt for demo only — no real money or SMS was sent.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
